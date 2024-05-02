@@ -1,0 +1,107 @@
+<html>
+
+<head>
+  <title>Sample Chart page</title>
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css">
+</head>
+
+<body>
+  <div class="col-lg-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title text-center">Pie Chart</h5>
+        <!-- Pie Chart -->
+        <div id="pieChart" style="min-height: 400px;" class="echart"></div>
+        <!-- <script src="assests/vendor/echarts/echarts.min.js"></script> -->
+        <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
+        <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics --(f)>
+      <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-analytics.js"></script>
+      Add Firebase products that you want to use -->
+        <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-storage.js"></script>
+        <script>
+          const firebaseConfig = {
+            apiKey: "AIzaSyCs8GhWqtz2F5Y5kmyivvca6oRZ8TlPss8",
+            authDomain: "dmgv1-46c19.firebaseapp.com",
+            projectId: "dmgv1-46c19",
+            storageBucket: "dmgv1-46c19.appspot.com",
+            messagingSenderId: "713057400438",
+            appId: "1:713057400438:web:54d6269561ab92c436d157",
+            measurementId: "G-3QL0L5WQ73"
+          };
+          firebase.initializeApp(firebaseConfig);
+          const db = firebase.firestore()
+
+          async function fetch() {
+            const res = await db.collection("feedback").get()
+            return res
+          }
+
+          async function main() {
+            var ratings = []
+            const res = await fetch()
+            res.docs.map((doc) => {
+              ratings.push(doc.data().ratings)
+            })
+            var data = []
+            ratings.map((rating, i) => {
+              console.log(ratings)
+              rating.map((r) => data.push({ value: r.rating, name: r.category }))
+            })
+            echarts.init(document.querySelector("#pieChart")).setOption({
+              tooltip: {
+                trigger: 'item'
+              },
+              legend: {
+                orient: 'vertical',
+                left: 'left'
+              },
+              series: [{
+                name: 'Ratings',
+                type: 'pie',
+                radius: '50%',
+                // data: [{
+                //   value: 10,
+                //   name: 'Search Engine'
+                // },
+                // {
+                //   value: 7.3,
+                //   name: 'Direct'
+                // },
+                // {
+                //   value: 5.8,
+                //   name: 'Email'
+                // },
+                // {
+                //   value: 4.8,
+                //   name: 'Union Ads'
+                // },
+                // {
+                //   value: 3.0,
+                //   name: 'Video Ads'
+                // }
+                // ],
+                data: data,
+                emphasis: {
+                  itemStyle: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                  }
+                }
+              }]
+            });
+          }
+
+
+
+          document.addEventListener("DOMContentLoaded", main);
+        </script>
+        <script src="user-assests/vendor/echarts/echarts.min.js"></script>
+
+</body>
+
+</html>
