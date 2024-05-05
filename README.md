@@ -1,10 +1,10 @@
 # FFS
 
-Description:
+**Description:**
 
 Faculty Feedback system (FFS) is created to increase the interaction between the students and the faculty. In this we have created a rating system based on the academic attendane percentage. Based on the academic attendance percentage the ratings and the feedback given to the particular faculty will be evaulated. The ones with attendance percentage with >=75 is preferred most and the with <=40 is preferred last. Results will be stored in the database and will be sent to the respective deans or head of the department such that suggestions will be given to the respective faculty based on the ratings and the feedback.
 
-Steps to run the web application:
+**Steps to run the web application:**
 
 1. Download and extract all the files into a single folder.
 2. Install xampp in your pc/laptop
